@@ -1,5 +1,5 @@
-name := "sbt-multi-project-example"
-organization in ThisBuild := "com.pbassiner"
+name := "ninja"
+organization in ThisBuild := "ninja"
 scalaVersion in ThisBuild := "2.12.3"
 
 // PROJECTS
@@ -9,45 +9,28 @@ lazy val global = project
   .settings(settings)
   .disablePlugins(AssemblyPlugin)
   .aggregate(
-    common,
-    multi1,
-    multi2
+    GameModule,
+    PlayerModule
   )
 
-lazy val common = project
+lazy val GameModule = project
   .settings(
-    name := "common",
+    name := "GameModule",
     settings,
+    assemblySettings,
     libraryDependencies ++= commonDependencies
   )
-  .disablePlugins(AssemblyPlugin)
+  .aggregate(PlayerModule)
+  .dependsOn(PlayerModule)
 
-lazy val multi1 = project
+lazy val PlayerModule = project
   .settings(
-    name := "multi1",
+    name := "PlayerModule",
     settings,
     assemblySettings,
-    libraryDependencies ++= commonDependencies ++ Seq(
-      dependencies.monocleCore,
-      dependencies.monocleMacro
-    )
-  )
-  .dependsOn(
-    common
+    libraryDependencies ++= commonDependencies
   )
 
-lazy val multi2 = project
-  .settings(
-    name := "multi2",
-    settings,
-    assemblySettings,
-    libraryDependencies ++= commonDependencies ++ Seq(
-      dependencies.pureconfig
-    )
-  )
-  .dependsOn(
-    common
-  )
 
 // DEPENDENCIES
 
@@ -85,7 +68,15 @@ lazy val commonDependencies = Seq(
   dependencies.typesafeConfig,
   dependencies.akka,
   dependencies.scalatest  % "test",
-  dependencies.scalacheck % "test"
+  dependencies.scalacheck % "test",
+  "org.scalatest" %% "scalatest" % "3.0.1" % "test",
+  "org.scala-lang.modules" % "scala-swing_2.12" % "2.0.3",
+  "com.google.inject" % "guice" % "4.1.0",
+  "net.codingwell" %% "scala-guice" % "4.1.0",
+  "org.scala-lang.modules" % "scala-xml_2.12" % "1.0.6",
+  "com.typesafe.play" %% "play-json" % "2.6.6",
+  "org.scala-lang.modules" % "scala-swing_2.12" % "2.0.3",
+  "org.scalafx" %% "scalafx" % "11-R16",
 )
 
 // SETTINGS

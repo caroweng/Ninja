@@ -63,7 +63,7 @@ class Gui(controller: ControllerInterface) extends Frame with UIInterface {
             }
         }
         contents += new Button {
-            text = "next player.Player"
+            text = "next Player"
             reactions += {
                 case ButtonClicked(_) => {
                     if(controller.state == State.WALKED) {

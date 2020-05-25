@@ -6,17 +6,19 @@ import com.google.inject.{Guice, Inject}
 import ninja.NinjaModule
 import ninja.controller.ControllerInterface
 import ninja.model.component.Desk
-import ninja.model.component.component.component.FieldInterface
-import ninja.model.component.component.component.component.Direction
+import ninja.model.component.component.component.{CellInterface, FieldInterface}
+import ninja.model.component.component.component.component.{Direction, Weapon}
 import ninja.model.fileIO.FileIOInterface
 import ninja.model.fileIO.xml.FileIO
 import ninja.model.{component, _}
 import ninja.util.UndoManager
+import ninja.view.Tui
 import play.api.libs.json.JsObject
 import player.{PlayerInterface, StateOfPlayer}
 
 import scala.swing.Publisher
 import scala.swing.event.Event
+import scala.util.{Failure, Success}
 
 class Controller @Inject()(var desk: DeskInterface) extends ControllerInterface with Publisher {
     var state: State.state = State.INSERTING_NAME_1
@@ -133,6 +135,48 @@ class Controller @Inject()(var desk: DeskInterface) extends ControllerInterface 
         else
             state
     }
+
+    def gameToHtml: String = {
+        "<p  style=\"font-family:'Lucida Console', monospace\"> " + deskToString.replace("\n","<br>").replace("  "," _") +"</p>"
+    }
+
+    def deskToString: String = {
+        val rows: Int= desk.field.matrix.length
+        val lineseparator: String = "  +" + ("----+") * rows + "\n"
+        val line: String = (" |" + "   " )*rows + " |\n"
+        var box: String = "\nrow 0  | 1  | 2  | 3  | 4  | 5" + "\n" + ( lineseparator + "n" +line ) * rows + lineseparator
+
+        for (i <- desk.field.matrix.indices) {
+            box = box.replaceFirst("n", i.toString)
+            for (j <- desk.field.matrix.indices)
+                box = box.replaceFirst("    ", this.cellToString(currentPlayer, i, j))
+        }
+        box
+    }
+
+    def cellToString(curPlayer: PlayerInterface, row: Int, col: Int): String ={
+        var str: String = ""
+        val cell: CellInterface = desk.field.getCellAtPosition(row, col)
+
+        val tryNinja = cell.getNinja()
+        tryNinja match {
+            case Success(ninja) =>
+                if(ninja.playerId == curPlayer.id) {
+                    if (ninja.playerId == currentPlayer.id) str = " 1" else str = " 2"
+                    ninja.weapon match {
+                        case Weapon.flag => str.concat("f ")
+                        case Weapon.rock => str.concat("r ")
+                        case Weapon.paper => str.concat("p ")
+                        case Weapon.scissors => str.concat("s ")
+                    }
+                } else {
+                    " xx "
+                }
+            case Failure(e) => "[  ]"
+        }
+    }
+
+
 }
 
 class UpdateEvent extends Event

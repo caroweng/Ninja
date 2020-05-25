@@ -15,6 +15,7 @@ trait ControllerInterface extends Publisher {
     def newDesk(player1: PlayerInterface, player2: PlayerInterface, field: FieldInterface): DeskInterface
     def newGame(): DeskInterface
     def currentPlayer: PlayerInterface
+    def getDirection(input: String): Direction.direction
     def setName(name: String): State.state
     def setFlag(row: Int, col: Int): State.state
     def wonOrTurn(input: String): State.state
@@ -25,4 +26,5 @@ trait ControllerInterface extends Publisher {
     def switchState(newState: State.state): State.state
     def undo: State.state
     def redo: State.state
+    def gameToHtml: String
 }

@@ -26,5 +26,4 @@ trait ControllerInterface extends Publisher {
     def switchState(newState: State.state): State.state
     def undo: State.state
     def redo: State.state
-    def gameToHtml: String
 }

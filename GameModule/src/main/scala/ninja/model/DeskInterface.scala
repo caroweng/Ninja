@@ -12,7 +12,6 @@ trait DeskInterface {
 
     def setNewGame(): DeskInterface
     def win(row: Int, col: Int, d: direction): Boolean
-    def changeTurns(): DeskInterface
     def copyWithNewPlayer(playerId: Int, newPlayer: PlayerInterface): DeskInterface
     def copyWithNewField(field: FieldInterface): DeskInterface
     def copyDesk(): DeskInterface

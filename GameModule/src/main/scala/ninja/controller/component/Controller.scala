@@ -3,7 +3,7 @@ package ninja.controller.component
 import java.nio.file.{Files, Paths}
 
 import com.google.inject.{Guice, Inject}
-import ninja.NinjaModule
+import ninja.{NinjaModule, PlayerRequestHandler}
 import ninja.controller.ControllerInterface
 import ninja.model.component.Desk
 import ninja.model.component.component.component.FieldInterface
@@ -13,7 +13,7 @@ import ninja.model.fileIO.xml.FileIO
 import ninja.model.{component, _}
 import ninja.util.UndoManager
 import play.api.libs.json.JsObject
-import player.{PlayerInterface, StateOfPlayer}
+import player.{Player, PlayerInterface, StateOfPlayer}
 
 import scala.swing.Publisher
 import scala.swing.event.Event
@@ -21,6 +21,7 @@ import scala.swing.event.Event
 class Controller @Inject()(var desk: DeskInterface) extends ControllerInterface with Publisher {
     var state: State.state = State.INSERTING_NAME_1
     private val undoManager: UndoManager = new UndoManager();
+    private val playerRequestHandler: PlayerRequestHandler = new PlayerRequestHandler();
     private val fileIO = new FileIO()
 
 
@@ -40,28 +41,48 @@ class Controller @Inject()(var desk: DeskInterface) extends ControllerInterface 
 
     def setName(name: String): State.state = {
         if (state == State.INSERTING_NAME_1) {
-            desk = desk.copyWithNewPlayer(1, currentPlayer.setName(name))
-            desk = desk.changeTurns()
+//            desk = desk.copyWithNewPlayer(1, currentPlayer.setName(name))
+            desk = setNameRequest(name, 1)
+//            desk = changeTurnsRequest()
             switchState(State.INSERTING_NAME_2)
         } else {
-            desk = desk.copyWithNewPlayer(2, currentPlayer.setName(name))
-            desk = desk.changeTurns()
+//            desk = desk.copyWithNewPlayer(2, currentPlayer.setName(name))
+            desk = setNameRequest(name, 2)
+//            desk = changeTurnsRequest()
             switchState(State.SET_FLAG_1)
         }
+    }
+
+    def changeTurnsRequest(): DeskInterface = {
+        println(desk.player1)
+        println(desk.player2)
+        val players: (PlayerInterface, PlayerInterface) = playerRequestHandler.changeTurns()
+        desk = desk.copyWithNewPlayer(players._1.id, players._1)
+        desk = desk.copyWithNewPlayer(players._2.id, players._2)
+        println(players)
+        desk
+    }
+
+    def setNameRequest(name: String, id: Int): DeskInterface = {
+        val player: PlayerInterface = playerRequestHandler.setName(name, id.toString)
+//        while(player==null) {
+//            Thread.sleep(100)
+//        }
+        desk.copyWithNewPlayer(player.id, player)
     }
 
     def setFlag(row: Int, col: Int): State.state = {
         if (state == State.SET_FLAG_1) {
             if (desk.field.isNinjaOfPlayerAtPosition(desk.player1, row, col)) {
                 desk = desk.copyWithNewField(desk.field.setFlag(desk.player1.id, row, col))
-                desk = desk.changeTurns()
+                desk = changeTurnsRequest()
                 return switchState(State.SET_FLAG_2)
             }
             switchState(State.SET_FLAG_1_FAILED)
         } else {
             if (desk.field.isNinjaOfPlayerAtPosition(desk.player2, row, col)) {
                 desk = desk.copyWithNewField(desk.field.setFlag(desk.player2.id, row, col))
-                desk = desk.changeTurns()
+                desk = changeTurnsRequest()
                 return switchState(State.TURN)
             }
             switchState(State.SET_FLAG_2_FAILED)
@@ -94,7 +115,7 @@ class Controller @Inject()(var desk: DeskInterface) extends ControllerInterface 
     }
 
     def changeTurns(): State.state = {
-        desk = desk.changeTurns()
+        desk = changeTurnsRequest()
         switchState(State.TURN)
     }
 

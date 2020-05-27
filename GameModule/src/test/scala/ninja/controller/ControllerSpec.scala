@@ -40,7 +40,7 @@ class ControllerSpec extends WordSpec with Matchers{
             controller.newGame()
             controller.desk.player1.state should be(StateOfPlayer.pause)
             controller.desk.player2.state should be(StateOfPlayer.go)
-            controller.desk = controller.desk.changeTurns()
+            controller.desk = controller.changeTurnsRequest()
             controller.desk.player1.state should be(StateOfPlayer.go)
             controller.desk.player2.state should be(StateOfPlayer.pause)
         }

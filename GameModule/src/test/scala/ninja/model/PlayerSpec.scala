@@ -22,8 +22,8 @@ class PlayerSpec extends WordSpec with Matchers{
         }
 
         "a turn gets changed" should {
-            val newPlayer1 = player1.changeState(player2.state)
-            val newPlayer2 = player2.changeState(player1.state)
+            val newPlayer1 = player1.changeState()
+            val newPlayer2 = player2.changeState()
             "have a new turn" in {
                 newPlayer1.state should be(StateOfPlayer.pause)
                 newPlayer2.state should be(StateOfPlayer.go)

@@ -5,6 +5,6 @@ trait PlayerInterface {
     val state: StateOfPlayer.stateOfPlayer
     val id: Int
 
-    def changeState(newState: StateOfPlayer.stateOfPlayer): PlayerInterface
+    def changeState(): PlayerInterface
     def setName(newName: String): PlayerInterface
 }

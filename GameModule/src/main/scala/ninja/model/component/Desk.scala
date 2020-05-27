@@ -31,13 +31,6 @@ case class Desk @Inject()(field: FieldInterface, player1: PlayerInterface, playe
     }
   }
 
-  def changeTurns(): Desk = {
-    val s1: StateOfPlayer.stateOfPlayer = player1.state
-    val p1: PlayerInterface = player1.changeState(player2.state)
-    val p2: PlayerInterface = player2.changeState(s1)
-    this.copy(player1 = p1, player2 = p2)
-  }
-
   def copyWithNewPlayer(playerId: Int, newPlayer: PlayerInterface): Desk =  {
     if(playerId == 1)
       copy(player1 = newPlayer)

@@ -90,6 +90,7 @@ lazy val commonDependencies = Seq(
   "com.typesafe.akka"      %% "akka-http-xml" % dependencies.akkaHttp,
   "com.typesafe.akka"      %% "akka-stream" % dependencies.akkaVersion,
   "com.typesafe.akka"      %% "akka-stream-testkit" % dependencies.akkaVersion % Test,
+  "org.scala-lang.modules" %% "scala-async" % "0.10.0",
 )
 
 // SETTINGS

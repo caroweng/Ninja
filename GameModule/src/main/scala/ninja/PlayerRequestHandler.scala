@@ -47,9 +47,9 @@ class PlayerRequestHandler extends SprayJsonSupport with DefaultJsonProtocol {
 
         val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(uri = Uri("http://localhost:8080/players/setName").withQuery(Query(params))))
 
-        val k: HttpResponse = Await.result(responseFuture, 1.second)
+        val k: HttpResponse = Await.result(responseFuture, 3.second)
         val l: Future[Player] = Unmarshal(k.entity).to[Player]
-        val player: Player = Await.result(l, 1.second)
+        val player: Player = Await.result(l, 3.second)
         player
     }
 

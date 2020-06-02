@@ -1,6 +1,6 @@
-package ninja.controller
+package controller
 
-import ninja.controller.component.{Controller, State}
+import controller.component.{Controller, State}
 import ninja.model.component.Desk
 import ninja.model.component.component.component.component._
 import org.scalatest.{Matchers, WordSpec}
@@ -9,7 +9,7 @@ import player.{Player, StateOfPlayer}
 import scala.util.{Failure, Success}
 
 class ControllerSpec extends WordSpec with Matchers{
-    "A ninja.controller" when {
+    "A controller" when {
         val player1: Player = Player("helen", StateOfPlayer.go, 1)
         val player2: Player = Player("caro", StateOfPlayer.pause, 1)
         val field: Field = Field(Array.ofDim[Cell](6, 6))
@@ -25,15 +25,15 @@ class ControllerSpec extends WordSpec with Matchers{
         }
 
 //        "set a players name" in {
-//            ninja.controller.switchState(State.INSERTING_NAME_1)
-//            ninja.controller.currentPlayer.name should be("helen")
-//            ninja.controller.setName("newName")
-//            ninja.controller.currentPlayer.name should be("newName")
-//            ninja.controller.desk.changeTurns()
-//            ninja.controller.switchState(State.INSERTING_NAME_2)
-//            ninja.controller.currentPlayer.name should be("caro")
-//            ninja.controller.setName("otherName")
-//            ninja.controller.currentPlayer.name should be("otherName")
+//            controller.switchState(State.INSERTING_NAME_1)
+//            controller.currentPlayer.name should be("helen")
+//            controller.setName("newName")
+//            controller.currentPlayer.name should be("newName")
+//            controller.desk.changeTurns()
+//            controller.switchState(State.INSERTING_NAME_2)
+//            controller.currentPlayer.name should be("caro")
+//            controller.setName("otherName")
+//            controller.currentPlayer.name should be("otherName")
 //        }
 
         "changeTurns" in {

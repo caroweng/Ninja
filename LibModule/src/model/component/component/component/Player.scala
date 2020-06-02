@@ -1,4 +1,6 @@
-package player
+package model.component.component.component
+
+import model.component.PlayerInterface
 
 case class Player(name: String, state: StateOfPlayer.stateOfPlayer, id: Int) extends PlayerInterface {
   def changeState(): PlayerInterface = {

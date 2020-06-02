@@ -1,6 +1,6 @@
 package ninja.model.fileIO
 
-import ninja.controller.component.State
+import controller.component.State
 import ninja.model.DeskInterface
 import play.api.libs.json.JsObject
 

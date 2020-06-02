@@ -2,8 +2,8 @@ package ninja
 
 import com.google.inject.AbstractModule
 import net.codingwell.scalaguice.ScalaModule
-import ninja.controller.ControllerInterface
-import ninja.controller.component.Controller
+import controller.ControllerInterface
+import controller.component.Controller
 import ninja.model.DeskInterface
 import ninja.model.component.Desk
 import ninja.model.component.component.component.FieldInterface

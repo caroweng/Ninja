@@ -1,7 +1,7 @@
 package ninja.model.fileIO.json
 
 import com.google.inject.Inject
-import ninja.controller.component.State
+import controller.component.State
 import ninja.model.DeskInterface
 import ninja.model.component.Desk
 import ninja.model.component.component.component.component.{Cell, Field, Ninja, Weapon}

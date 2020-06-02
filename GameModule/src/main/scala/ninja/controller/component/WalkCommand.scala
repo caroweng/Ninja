@@ -1,4 +1,4 @@
-package ninja.controller.component
+package controller.component
 
 import ninja.model.DeskInterface
 import ninja.model.component.Desk
@@ -35,22 +35,22 @@ class WalkCommand (row: Int, col: Int, d: Direction.direction, controller: Contr
 
     override def redoStep: State.state = {
         doStep
-//        val cell = ninja.controller.desk.field.getCellAtPosition(row, col)
+//        val cell = controller.desk.field.getCellAtPosition(row, col)
 //        val ninja = cell.getNinja()
 //        ninja match {
 //            case Success(n) =>
-//                if(n.weapon == Weapon.flag || n.playerId != ninja.controller.currentPlayer.id)
-//                    return ninja.controller.switchState(State.No_NINJA_OR_NOT_VALID)
+//                if(n.weapon == Weapon.flag || n.playerId != controller.currentPlayer.id)
+//                    return controller.switchState(State.No_NINJA_OR_NOT_VALID)
 //
-//                if (ninja.controller.desk.field.cellExists(row, col, d)) {
-//                    ninja.controller.desk = ninja.controller.desk.copyWithNewField(ninja.controller.desk.field.walkNinja(n, d))
+//                if (controller.desk.field.cellExists(row, col, d)) {
+//                    controller.desk = controller.desk.copyWithNewField(controller.desk.field.walkNinja(n, d))
 //                    println("Finished? Press <y> for next player")
-//                    ninja.controller.switchState(State.WALKED)
+//                    controller.switchState(State.WALKED)
 //                } else {
-//                    ninja.controller.switchState(State.DIRECTION_DOES_NOT_EXIST)
+//                    controller.switchState(State.DIRECTION_DOES_NOT_EXIST)
 //                }
 //            case Failure(e) =>
-//                ninja.controller.switchState(State.No_NINJA_OR_NOT_VALID)
+//                controller.switchState(State.No_NINJA_OR_NOT_VALID)
 //        }
     }
 }

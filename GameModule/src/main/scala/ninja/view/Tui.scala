@@ -1,7 +1,7 @@
 package ninja.view
 
-import ninja.controller.ControllerInterface
-import ninja.controller.component.{Controller, State, UpdateEvent}
+import controller.ControllerInterface
+import controller.component.{Controller, State, UpdateEvent}
 import ninja.model.component.component.component.component.{Cell, Weapon}
 import ninja.model.component.component.component.{CellInterface, NinjaInterface}
 import player.PlayerInterface

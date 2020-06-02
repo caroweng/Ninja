@@ -1,35 +1,8 @@
-name := "ninja"
-organization in ThisBuild := "ninja"
-scalaVersion in ThisBuild := "2.12.3"
+name := "game"
+scalaVersion := "2.12.3"
 
 // PROJECTS
-
-lazy val global = project
-  .in(file("."))
-  .settings(settings)
-  .disablePlugins(AssemblyPlugin)
-  .aggregate(
-    GameModule,
-    PlayerModule
-  )
-
-lazy val GameModule = project
-  .settings(
-    name := "GameModule",
-    settings,
-    assemblySettings,
-    libraryDependencies ++= commonDependencies
-  )
-  .aggregate(PlayerModule)
-  .dependsOn(PlayerModule)
-
-lazy val PlayerModule = project
-  .settings(
-    name := "PlayerModule",
-    settings,
-    assemblySettings,
-    libraryDependencies ++= commonDependencies
-  )
+libraryDependencies ++= commonDependencies
 
 // DEPENDENCIES
 
@@ -93,52 +66,14 @@ lazy val commonDependencies = Seq(
   "org.scala-lang.modules" %% "scala-async" % "0.10.0",
 )
 
-// SETTINGS
+unmanagedBase := baseDirectory.value / "lib"
 
-lazy val settings =
-commonSettings ++
-wartremoverSettings ++
-scalafmtSettings
 
-lazy val compilerOptions = Seq(
-  "-unchecked",
-  "-feature",
-  "-language:existentials",
-  "-language:higherKinds",
-  "-language:implicitConversions",
-  "-language:postfixOps",
-  "-deprecation",
-  "-encoding",
-  "utf8"
-)
 
-lazy val commonSettings = Seq(
-  scalacOptions ++= compilerOptions,
-  resolvers ++= Seq(
-    "Local Maven Repository" at "file://" + Path.userHome.absolutePath + "/.m2/repository",
-    Resolver.sonatypeRepo("releases"),
-    Resolver.sonatypeRepo("snapshots")
-  )
-)
 
-lazy val wartremoverSettings = Seq(
-  wartremoverWarnings in (Compile, compile) ++= Warts.allBut(Wart.Throw)
-)
 
-lazy val scalafmtSettings =
-  Seq(
-    scalafmtOnCompile := true,
-    scalafmtTestOnCompile := true,
-    scalafmtVersion := "1.2.0"
-  )
 
-lazy val assemblySettings = Seq(
-  assemblyJarName in assembly := name.value + ".jar",
-  assemblyMergeStrategy in assembly := {
-    case PathList("META-INF", xs @ _*) => MergeStrategy.discard
-    case "application.conf"            => MergeStrategy.concat
-    case x =>
-      val oldStrategy = (assemblyMergeStrategy in assembly).value
-      oldStrategy(x)
-  }
-)
+
+
+
+

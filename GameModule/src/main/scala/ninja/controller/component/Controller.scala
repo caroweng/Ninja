@@ -4,7 +4,7 @@ import java.nio.file.{Files, Paths}
 
 import com.google.inject.{Guice, Inject}
 import ninja.{NinjaModule, PlayerRequestHandler}
-import ninja.controller.ControllerInterface
+import controller.ControllerInterface
 import ninja.model.component.Desk
 import ninja.model.component.component.component.FieldInterface
 import ninja.model.component.component.component.component.Direction
@@ -14,6 +14,8 @@ import ninja.model.{component, _}
 import ninja.util.UndoManager
 import play.api.libs.json.JsObject
 import player.{Player, PlayerInterface, StateOfPlayer}
+
+
 
 import scala.swing.Publisher
 import scala.swing.event.Event

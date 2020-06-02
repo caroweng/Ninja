@@ -4,7 +4,6 @@ import akka.http.scaladsl.server.Directives.{complete, get, pathPrefix}
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
-
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import spray.json._
 import akka.actor.ActorSystem

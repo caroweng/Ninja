@@ -1,6 +1,6 @@
-package ninja.controller
+package controller
 
-import ninja.controller.component.State
+import controller.component.State
 import ninja.model.DeskInterface
 import ninja.model.component.component.component.FieldInterface
 import ninja.model.component.component.component.component.Direction

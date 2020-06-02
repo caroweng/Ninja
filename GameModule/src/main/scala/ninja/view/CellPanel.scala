@@ -1,6 +1,6 @@
 package ninja.view
 
-import ninja.controller.component.Controller
+import controller.component.Controller
 import scala.swing._
 import scala.util.{Failure, Success}
 
@@ -36,14 +36,14 @@ class CellPanel(row: Int, column: Int, controller: Controller) extends FlowPanel
 ////        background = cellColor
 //        border = Swing.BeveledBorder(Swing.Raised)
 //        listenTo(mouse.clicks)
-////        listenTo(ninja.controller)
+////        listenTo(controller)
 //        reactions += {
 ////            case _ =>  {
 ////                label.text = cellText(row, column)
 ////                repaint
 ////            }
 //            case MouseClicked(src, pt, mod, clicks, pops) => {
-////                ninja.controller.showCandidates(row, column)
+////                controller.showCandidates(row, column)
 //                repaint
 //            }
 //        }

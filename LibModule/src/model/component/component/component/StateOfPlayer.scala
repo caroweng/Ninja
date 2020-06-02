@@ -1,4 +1,4 @@
-package player
+package model.component.component.component
 
 object StateOfPlayer extends Enumeration {
   type stateOfPlayer = Value

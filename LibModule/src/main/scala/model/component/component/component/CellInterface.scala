@@ -1,4 +1,4 @@
-package ninja.model.component.component.component
+package model.component.component.component
 
 import scala.util.Try
 

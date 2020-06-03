@@ -1,9 +1,9 @@
 package ninja.view
 
-import controller.ControllerInterface
-import controller.component.{Controller, State, UpdateEvent}
-import ninja.model.component.component.component.component.Weapon
 import javax.swing.ImageIcon
+import model.component.component.component.component.Weapon
+import ninja.controller.ControllerInterface
+import ninja.controller.component.{State, UpdateEvent}
 
 import scala.swing.Swing.LineBorder
 import scala.swing.event.{ButtonClicked, MouseClicked}

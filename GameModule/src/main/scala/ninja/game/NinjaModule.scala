@@ -1,15 +1,14 @@
-package ninja
+package ninja.game
 
 import com.google.inject.AbstractModule
+import model.DeskInterface
+import model.component.Desk
+import model.component.component.component.component.{Cell, Field}
+import model.component.component.component.{FieldInterface, Player, StateOfPlayer}
 import net.codingwell.scalaguice.ScalaModule
-import controller.ControllerInterface
-import controller.component.Controller
-import ninja.model.DeskInterface
-import ninja.model.component.Desk
-import ninja.model.component.component.component.FieldInterface
-import ninja.model.component.component.component.component.{Cell, Field}
-import ninja.model.fileIO.FileIOInterface
-import player.{Player, StateOfPlayer}
+import ninja.controller.ControllerInterface
+import ninja.controller.component.Controller
+import ninja.fileIO.FileIOInterface
 
 class NinjaModule extends AbstractModule with ScalaModule {
     var player1 = Player("Spieler1", StateOfPlayer.go, 1)
@@ -22,8 +21,8 @@ class NinjaModule extends AbstractModule with ScalaModule {
         bind[DeskInterface].toInstance(Desk(field, player1, player2))
         bind[ControllerInterface].toInstance(new Controller(desk))
 
-        bind[FileIOInterface].to[model.fileIO.json.FileIO]
-//        bind[FileIOInterface].to[ninja.model.fileIO.xml.FileIO]
+        bind[FileIOInterface].to[ninja.fileIO.json.FileIO]
+//        bind[FileIOInterface].to[ninja.ninja.fileIO.xml.FileIO]
 
     }
 

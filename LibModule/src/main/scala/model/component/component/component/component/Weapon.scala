@@ -1,4 +1,4 @@
-package ninja.model.component.component.component.component
+package model.component.component.component.component
 
 object Weapon extends Enumeration {
     type weapon = Value

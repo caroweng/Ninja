@@ -1,10 +1,10 @@
-package controller
+package ninja.controller
 
-import controller.component.State
-import ninja.model.DeskInterface
-import ninja.model.component.component.component.FieldInterface
-import ninja.model.component.component.component.component.Direction
-import player.PlayerInterface
+import model.DeskInterface
+import model.component.PlayerInterface
+import model.component.component.component.FieldInterface
+import model.component.component.component.component.Direction
+import ninja.controller.component.State
 
 import scala.swing.Publisher
 

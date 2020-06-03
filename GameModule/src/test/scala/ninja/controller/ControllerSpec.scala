@@ -1,12 +1,13 @@
-package controller
+package ninja.controller
 
-import controller.component.{Controller, State}
-import ninja.model.component.Desk
-import ninja.model.component.component.component.component._
+import model.component.Desk
+import model.component.component.component.component.{Cell, Direction, Field}
+import model.component.component.component.{Player, StateOfPlayer}
+import ninja.controller.component.{Controller, State}
 import org.scalatest.{Matchers, WordSpec}
-import player.{Player, StateOfPlayer}
 
 import scala.util.{Failure, Success}
+
 
 class ControllerSpec extends WordSpec with Matchers{
     "A controller" when {

@@ -1,8 +1,7 @@
-package controller.component
+package ninja.controller.component
 
-import ninja.model.DeskInterface
-import ninja.model.component.Desk
-import ninja.model.component.component.component.component.{Direction, Weapon}
+import model.DeskInterface
+import model.component.component.component.component.{Direction, Weapon}
 import ninja.util.Command
 
 import scala.util.{Failure, Success}

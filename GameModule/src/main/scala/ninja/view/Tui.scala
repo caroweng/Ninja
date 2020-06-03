@@ -1,10 +1,10 @@
 package ninja.view
 
-import controller.ControllerInterface
-import controller.component.{Controller, State, UpdateEvent}
-import ninja.model.component.component.component.component.{Cell, Weapon}
-import ninja.model.component.component.component.{CellInterface, NinjaInterface}
-import player.PlayerInterface
+import model.component.PlayerInterface
+import model.component.component.component.CellInterface
+import model.component.component.component.component.Weapon
+import ninja.controller.ControllerInterface
+import ninja.controller.component.{State, UpdateEvent}
 
 import scala.swing.Reactor
 import scala.util.{Failure, Success}

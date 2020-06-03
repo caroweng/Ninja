@@ -1,6 +1,6 @@
 package ninja.util
 
-import controller.component.State
+import ninja.controller.component.State
 
 class UndoManager {
   private var undoStack: List[Command]= Nil

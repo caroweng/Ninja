@@ -1,9 +1,7 @@
-package ninja.model.component.component.component
+package model.component.component.component
 
-import ninja.model.component.component.component.component.{Cell, Direction, Weapon}
-import player.PlayerInterface
-
-import scala.util.Try
+import model.component.PlayerInterface
+import model.component.component.component.component.{Cell, Direction, Weapon}
 
 
 trait FieldInterface {

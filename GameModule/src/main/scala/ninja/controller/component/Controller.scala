@@ -3,19 +3,14 @@ package ninja.controller.component
 import java.nio.file.{Files, Paths}
 
 import com.google.inject.{Guice, Inject}
-import ninja.{NinjaModule, PlayerRequestHandler}
-import controller.ControllerInterface
-import ninja.model.component.Desk
-import ninja.model.component.component.component.FieldInterface
-import ninja.model.component.component.component.component.Direction
-import ninja.model.fileIO.FileIOInterface
-import ninja.model.fileIO.xml.FileIO
-import ninja.model.{component, _}
+import model.DeskInterface
+import model.component.component.component.component.Direction
+import model.component.{Desk, PlayerInterface}
+import model.component.component.component.{FieldInterface, StateOfPlayer}
+import ninja.controller.ControllerInterface
+import ninja.fileIO.json.FileIO
+import ninja.game.PlayerRequestHandler
 import ninja.util.UndoManager
-import play.api.libs.json.JsObject
-import player.{Player, PlayerInterface, StateOfPlayer}
-
-
 
 import scala.swing.Publisher
 import scala.swing.event.Event

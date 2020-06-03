@@ -1,14 +1,13 @@
-package ninja.model.fileIO.json
+package ninja.fileIO.json
 
 import com.google.inject.Inject
-import controller.component.State
-import ninja.model.DeskInterface
-import ninja.model.component.Desk
-import ninja.model.component.component.component.component.{Cell, Field, Ninja, Weapon}
-import ninja.model.component.component.component.{CellInterface, FieldInterface, NinjaInterface}
-import ninja.model.fileIO.FileIOInterface
+import model.DeskInterface
+import model.component.{Desk, PlayerInterface}
+import model.component.component.component.component.{Cell, Field, Ninja, Weapon}
+import model.component.component.component.{CellInterface, FieldInterface, NinjaInterface, Player, StateOfPlayer}
+import ninja.controller.component.State
+import ninja.fileIO.FileIOInterface
 import play.api.libs.json._
-import player.{Player, PlayerInterface, StateOfPlayer}
 
 import scala.io.Source
 import scala.util.{Failure, Success}

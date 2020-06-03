@@ -1,4 +1,4 @@
-package controller.component
+package ninja.controller.component
 
 object State extends Enumeration {
 

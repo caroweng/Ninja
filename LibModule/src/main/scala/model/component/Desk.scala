@@ -1,11 +1,10 @@
-package ninja.model.component
+package model.component
 
 import com.google.inject.Inject
-import ninja.model._
-import ninja.model.component.component.component.component.Direction.direction
-import ninja.model.component.component.component.component.{Direction, Weapon}
-import ninja.model.component.component.component.{CellInterface, FieldInterface, NinjaInterface}
-import player.{PlayerInterface, StateOfPlayer}
+import model.DeskInterface
+import model.component.component.component.component.{Direction, Weapon}
+import model.component.component.component.component.Direction.direction
+import model.component.component.component.{CellInterface, FieldInterface}
 
 import scala.util.{Failure, Success}
 

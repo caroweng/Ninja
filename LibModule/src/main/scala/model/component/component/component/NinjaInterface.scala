@@ -1,6 +1,6 @@
-package ninja.model.component.component.component
+package model.component.component.component
 
-import ninja.model.component.component.component.component.Weapon
+import model.component.component.component.component.Weapon
 
 trait NinjaInterface {
     val weapon: Weapon.weapon

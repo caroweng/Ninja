@@ -1,8 +1,8 @@
-package ninja
+package ninja.game
 
 import com.google.inject.Guice
-import controller.ControllerInterface
-import controller.component.UpdateEvent
+import ninja.controller.ControllerInterface
+import ninja.controller.component.UpdateEvent
 import ninja.view.{Gui, Tui}
 
 import scala.io.StdIn.readLine

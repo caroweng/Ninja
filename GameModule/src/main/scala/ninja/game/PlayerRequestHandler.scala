@@ -1,26 +1,35 @@
-package ninja
+package ninja.game
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
-import akka.http.scaladsl.model._
-import akka.stream.{ActorMaterializer, Materializer}
-import player.{EnumJsonConverter, Player, StateOfPlayer}
-import spray.json.{DefaultJsonProtocol, RootJsonFormat}
-
-import scala.concurrent.{Await, ExecutionContextExecutor, Future}
-import scala.util.{Failure, Success}
-import akka.http.scaladsl.unmarshalling.Unmarshal
-
-import scala.concurrent.Await
-import scala.concurrent.duration._
 import akka.http.scaladsl.model.Uri.Query
+import akka.http.scaladsl.model._
+import akka.http.scaladsl.unmarshalling.Unmarshal
+import akka.stream.ActorMaterializer
+import model.component.component.component.{Player, StateOfPlayer}
+import spray.json.{DefaultJsonProtocol, DeserializationException, JsString, JsValue, RootJsonFormat}
 
-import scala.async.Async.{async, await}
-import scala.xml.Null
-
+import scala.concurrent.duration._
+import scala.concurrent.{Await, ExecutionContextExecutor, Future}
 
 class PlayerRequestHandler extends SprayJsonSupport with DefaultJsonProtocol {
+    class EnumJsonConverter[T <: scala.Enumeration](enu: T) extends RootJsonFormat[T#Value] {
+        override def write(obj: T#Value): JsValue = JsString(obj.toString)
+
+        override def read(json: JsValue): T#Value = {
+            json match {
+                case JsString(txt) => enu.withName(txt)
+                case somethingElse => throw DeserializationException(s"Expected a value from enum $enu instead of $somethingElse")
+            }
+        }
+    }
+
+    // collect your json format instances into a support trait:
+    trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
+        implicit val enumConverter = new EnumJsonConverter(StateOfPlayer)
+        implicit val itemFormat: RootJsonFormat[Player] = jsonFormat3(Player)
+    }
 
     implicit val enumConverter = new EnumJsonConverter(StateOfPlayer)
     implicit val itemFormat: RootJsonFormat[Player] = jsonFormat3(Player)

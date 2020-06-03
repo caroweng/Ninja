@@ -1,8 +1,7 @@
-package ninja.model.component.component.component.component
+package model.component.component.component.component
 
-import com.google.inject.Inject
-import ninja.model.component.component.component.{CellInterface, FieldInterface, NinjaInterface}
-import player.PlayerInterface
+import model.component.PlayerInterface
+import model.component.component.component.{CellInterface, FieldInterface, NinjaInterface}
 
 import scala.util.{Failure, Random, Success, Try}
 

@@ -1,6 +1,7 @@
 package ninja.view
 
-import controller.component.Controller
+import ninja.controller.component.Controller
+
 import scala.swing._
 import scala.util.{Failure, Success}
 

@@ -1,6 +1,6 @@
 package ninja.util
 
-import controller.component.State
+import ninja.controller.component.State
 
 trait Command {
     def doStep: State.state

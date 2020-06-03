@@ -1,8 +1,8 @@
-package ninja.model
+package model
 
-import ninja.model.component.component.component.component.Direction.direction
-import ninja.model.component.component.component.FieldInterface
-import player.PlayerInterface
+import model.component.PlayerInterface
+import model.component.component.component.FieldInterface
+import model.component.component.component.component.Direction.direction
 
 trait DeskInterface {
 

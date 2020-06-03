@@ -1,4 +1,4 @@
-package ninja.model.component.component.component.component
+package model.component.component.component.component
 
 object Direction extends Enumeration {
   type direction = Value

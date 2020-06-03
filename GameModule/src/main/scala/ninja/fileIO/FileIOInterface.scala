@@ -1,8 +1,7 @@
-package ninja.model.fileIO
+package ninja.fileIO
 
-import controller.component.State
-import ninja.model.DeskInterface
-import play.api.libs.json.JsObject
+import model.DeskInterface
+import ninja.controller.component.State
 
 trait FileIOInterface {
   def load: DeskInterface

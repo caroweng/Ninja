@@ -64,6 +64,9 @@ lazy val commonDependencies = Seq(
   "com.typesafe.akka"      %% "akka-stream" % dependencies.akkaVersion,
   "com.typesafe.akka"      %% "akka-stream-testkit" % dependencies.akkaVersion % Test,
   "org.scala-lang.modules" %% "scala-async" % "0.10.0",
+  "com.h2database" % "h2" % "1.4.199",
+  "com.typesafe.slick" %% "slick" % "3.3.2",
+  "org.slf4j" % "slf4j-nop" % "1.6.4",
 )
 
 unmanagedBase := baseDirectory.value / "lib"

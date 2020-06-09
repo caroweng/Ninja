@@ -20,6 +20,8 @@ class Tui(controller: ControllerInterface) extends Reactor with UIInterface {
     val StoreGameRegex: Regex = "s".r
     val LoadGameRegex: Regex = "l".r
     val NextPlayerRegex: Regex = "y".r
+    val DBStoreGameRegex: Regex = "dbs".r
+    val DBLoadGameRegex: Regex = "dbl".r
     listenTo(controller)
 
     reactions += {
@@ -53,6 +55,8 @@ class Tui(controller: ControllerInterface) extends Reactor with UIInterface {
             case WalkRegex() => controller.wonOrTurn(input)
             case RedoRegex() => controller.redo
             case StoreGameRegex() => controller.storeFile
+            case DBStoreGameRegex() => controller.storeGameInDB
+            case DBLoadGameRegex() => controller.loadGameFromDB
             case _ => controller.switchState(State.WALK_REGEX_INCORRECT)
         }
     }

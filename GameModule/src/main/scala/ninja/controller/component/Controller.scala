@@ -3,6 +3,8 @@ package ninja.controller.component
 import java.nio.file.{Files, Paths}
 
 import com.google.inject.{Guice, Inject}
+import database.DaoInterface
+import database.relational.RelationalDb
 import model.DeskInterface
 import model.component.component.component.component.Direction
 import model.component.{Desk, PlayerInterface}
@@ -20,6 +22,7 @@ class Controller @Inject()(var desk: DeskInterface) extends ControllerInterface 
     private val undoManager: UndoManager = new UndoManager();
     private val playerRequestHandler: PlayerRequestHandler = new PlayerRequestHandler();
     private val fileIO = new FileIO()
+    private val database: DaoInterface = RelationalDb;
 
 
     def newDesk(player1: PlayerInterface, player2: PlayerInterface, field: FieldInterface): DeskInterface = {
@@ -123,8 +126,22 @@ class Controller @Inject()(var desk: DeskInterface) extends ControllerInterface 
         switchState(oldState)
     }
 
+    override def storeGameInDB: State.state = {
+        database.putGameInDb(fileIO.deskToString(desk, state).toString())
+        val oldState = state
+        switchState(State.STORE_FILE)
+        switchState(oldState)
+    }
+
     override def loadFile: State.state = {
         desk = fileIO.load
+        switchState(State.LOAD_FILE)
+        switchState(State.TURN)
+    }
+
+    override def loadGameFromDB: State.state = {
+        val deskAsString = database.getGameFromDb().get
+        desk = fileIO.deskFromJson(deskAsString)
         switchState(State.LOAD_FILE)
         switchState(State.TURN)
     }
@@ -151,6 +168,7 @@ class Controller @Inject()(var desk: DeskInterface) extends ControllerInterface 
         else
             state
     }
+
 }
 
 class UpdateEvent extends Event

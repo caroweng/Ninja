@@ -40,10 +40,10 @@ class PlayerRequestHandler extends SprayJsonSupport with DefaultJsonProtocol {
         implicit val materializer: ActorMaterializer = ActorMaterializer()
         implicit val executionContext: ExecutionContextExecutor = system.dispatcher
 
-        val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(uri = "http://localhost:8080/players/changeTurn"))
-        val k: HttpResponse = Await.result(responseFuture, 1.second)
+        val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(uri = "http://myplayer:9000/players/changeTurn"))
+        val k: HttpResponse = Await.result(responseFuture, 3.second)
         val l: Future[(Player,Player)] = Unmarshal(k.entity).to[(Player,Player)]
-        val players: (Player,Player) = Await.result(l, 1.second)
+        val players: (Player,Player) = Await.result(l, 3.second)
         players
     }
 
@@ -54,7 +54,7 @@ class PlayerRequestHandler extends SprayJsonSupport with DefaultJsonProtocol {
 
         val params = Map(("name", name), ("id", id))
 
-        val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(uri = Uri("http://localhost:8080/players/setName").withQuery(Query(params))))
+        val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(uri = Uri("http://myplayer:9000/players/setName").withQuery(Query(params))))
 
         val k: HttpResponse = Await.result(responseFuture, 3.second)
         val l: Future[Player] = Unmarshal(k.entity).to[Player]

@@ -73,6 +73,6 @@ object Server extends App with JsonSupport {
 
     val route: Route = concat(playerRoutes)
 
-    Http().bindAndHandle(route, "localhost", 8080)
+    Http().bindAndHandle(route, "0.0.0.0", 9000)
     Await.result(actorSystem.whenTerminated, Duration.Inf)
 }

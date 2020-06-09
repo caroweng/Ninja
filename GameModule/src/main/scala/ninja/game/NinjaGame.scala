@@ -17,7 +17,7 @@ object NinjaGame {
 
 
   val tui = new Tui(controller)
-  val gui = new Gui(controller)
+ // val gui = new Gui(controller)
   controller.publish(new UpdateEvent)
 
   def main(args: Array[String]): Unit= {

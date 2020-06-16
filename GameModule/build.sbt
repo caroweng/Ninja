@@ -67,6 +67,8 @@ lazy val commonDependencies = Seq(
   "com.h2database" % "h2" % "1.4.199",
   "com.typesafe.slick" %% "slick" % "3.3.2",
   "org.slf4j" % "slf4j-nop" % "1.6.4",
+  "org.mongodb.scala" %% "mongo-scala-driver" % "2.9.0"
+
 )
 
 unmanagedBase := baseDirectory.value / "lib"

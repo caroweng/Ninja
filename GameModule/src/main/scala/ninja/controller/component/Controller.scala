@@ -4,6 +4,7 @@ import java.nio.file.{Files, Paths}
 
 import com.google.inject.{Guice, Inject}
 import database.DaoInterface
+import database.mongo.MongoDB
 import database.relational.RelationalDb
 import model.DeskInterface
 import model.component.component.component.component.Direction
@@ -22,7 +23,8 @@ class Controller @Inject()(var desk: DeskInterface) extends ControllerInterface 
     private val undoManager: UndoManager = new UndoManager();
     private val playerRequestHandler: PlayerRequestHandler = new PlayerRequestHandler();
     private val fileIO = new FileIO()
-    private val database: DaoInterface = RelationalDb;
+//    private val database: DaoInterface = RelationalDb;
+    private val database: DaoInterface = new MongoDB();
 
 
     def newDesk(player1: PlayerInterface, player2: PlayerInterface, field: FieldInterface): DeskInterface = {

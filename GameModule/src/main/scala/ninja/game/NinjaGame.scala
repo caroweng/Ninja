@@ -19,6 +19,7 @@ object NinjaGame {
   val tui = new Tui(controller)
  // val gui = new Gui(controller)
   controller.publish(new UpdateEvent)
+  val webServer = new PlayerRequestHandlerWui(controller)
 
   def main(args: Array[String]): Unit= {
     val input: String = ""
@@ -26,6 +27,7 @@ object NinjaGame {
       val input = readLine()
       tui.input(input)
     } while (input != "q")
+    webServer.unbind
   }
 
 }

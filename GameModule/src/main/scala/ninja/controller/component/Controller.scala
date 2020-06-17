@@ -12,7 +12,7 @@ import model.component.{Desk, PlayerInterface}
 import model.component.component.component.{FieldInterface, StateOfPlayer}
 import ninja.controller.ControllerInterface
 import ninja.fileIO.json.FileIO
-import ninja.game.PlayerRequestHandler
+import ninja.game.{PlayerRequestHandler, PlayerRequestHandlerWui}
 import ninja.util.UndoManager
 
 import scala.swing.Publisher

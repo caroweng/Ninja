@@ -18,3 +18,12 @@ services:
       default:
         aliases:
           - myplayer
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    networks:
+      default:
+        aliases:
+          - mymongo

@@ -21,9 +21,11 @@ trait ControllerInterface extends Publisher {
     def walk(row: Int, col: Int, d: Direction.direction): State.state
     def changeTurns(): State.state
     def loadFile: State.state
-    def loadGameFromDB: State.state
+    def loadGameFromRelDB: State.state
+    def loadGameFromMongoDB: State.state
     def storeFile: State.state
-    def storeGameInDB: State.state
+    def storeGameInRelDB: State.state
+    def storeGameInMongoDB: State.state
     def switchState(newState: State.state): State.state
     def undo: State.state
     def redo: State.state

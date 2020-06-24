@@ -10,9 +10,9 @@ import scala.concurrent.Await
 import scala.concurrent.duration.{Duration, FiniteDuration}
 
 class MongoDB extends DaoInterface {
-    val DURATION: FiniteDuration = Duration.fromNanos(1000000000)
+    val DURATION: FiniteDuration = Duration.fromNanos(10000000000L)
     // To directly connect to the default server localhost on port 27017
-    val mongoClient: MongoClient = MongoClient("mongodb://mymongo:27017")
+    val mongoClient: MongoClient = MongoClient("mongodb://127.0.0.1:27017")
     val database: MongoDatabase = mongoClient.getDatabase("ninja")
     val playerCollection: MongoCollection[Document] = database.getCollection("players")
     val deskCollection: MongoCollection[Document] = database.getCollection("desk")

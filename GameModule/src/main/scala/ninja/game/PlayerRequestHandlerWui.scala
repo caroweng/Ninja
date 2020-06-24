@@ -27,6 +27,10 @@ class PlayerRequestHandlerWui(controller: ControllerInterface) {
         path("undo")(get(complete(handle(controller.undo)))) ~
             path("redo")(get(complete(handle(controller.redo)))) ~
             path("store")(get(complete(handle(controller.storeFile)))) ~
+            path("mongoStore")(get(complete(handle(controller.storeGameInMongoDB)))) ~
+            path("relStore")(get(complete(handle(controller.storeGameInRelDB)))) ~
+            path("mongoLoad")(get(complete(handle(controller.loadGameFromMongoDB)))) ~
+            path("relLoad")(get(complete(handle(controller.loadGameFromRelDB)))) ~
             path("next")(get(complete(handle(controller.changeTurns())))) ~
             path("walk")(get(parameter('row, 'col, 'dir) { (row, col, dir) =>
                 val currentRow: Int = row.toInt
@@ -72,7 +76,7 @@ class PlayerRequestHandlerWui(controller: ControllerInterface) {
         }
     }
 
-    val bindingFuture = Http().bindAndHandle(concat(ninjaRoute, startMenuRoute, startRoute, stateRoute), "localhost", 8000)
+    val bindingFuture = Http().bindAndHandle(concat(ninjaRoute, startMenuRoute, startRoute, stateRoute), "127.0.0.1", 8000)
 
     def unbind = {
         bindingFuture

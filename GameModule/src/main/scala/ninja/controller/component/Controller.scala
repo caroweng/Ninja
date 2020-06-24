@@ -23,8 +23,8 @@ class Controller @Inject()(var desk: DeskInterface) extends ControllerInterface 
     private val undoManager: UndoManager = new UndoManager();
     private val playerRequestHandler: PlayerRequestHandler = new PlayerRequestHandler();
     private val fileIO = new FileIO()
-//    private val database: DaoInterface = RelationalDb;
-    private val database: DaoInterface = new MongoDB();
+    private val relationalDatabase: DaoInterface = RelationalDb;
+    private val mongoDatabase: DaoInterface = new MongoDB();
 
 
     def newDesk(player1: PlayerInterface, player2: PlayerInterface, field: FieldInterface): DeskInterface = {
@@ -128,8 +128,15 @@ class Controller @Inject()(var desk: DeskInterface) extends ControllerInterface 
         switchState(oldState)
     }
 
-    override def storeGameInDB: State.state = {
-        database.putGameInDb(fileIO.deskToString(desk, state).toString())
+    override def storeGameInRelDB: State.state = {
+        relationalDatabase.putGameInDb(fileIO.deskToString(desk, state).toString())
+        val oldState = state
+        switchState(State.STORE_FILE)
+        switchState(oldState)
+    }
+
+    override def storeGameInMongoDB: State.state = {
+        mongoDatabase.putGameInDb(fileIO.deskToString(desk, state).toString())
         val oldState = state
         switchState(State.STORE_FILE)
         switchState(oldState)
@@ -141,8 +148,15 @@ class Controller @Inject()(var desk: DeskInterface) extends ControllerInterface 
         switchState(State.TURN)
     }
 
-    override def loadGameFromDB: State.state = {
-        val deskAsString = database.getGameFromDb().get
+    override def loadGameFromRelDB: State.state = {
+        val deskAsString = relationalDatabase.getGameFromDb().get
+        desk = fileIO.deskFromJson(deskAsString)
+        switchState(State.LOAD_FILE)
+        switchState(State.TURN)
+    }
+
+    override def loadGameFromMongoDB: State.state = {
+        val deskAsString = mongoDatabase.getGameFromDb().get
         desk = fileIO.deskFromJson(deskAsString)
         switchState(State.LOAD_FILE)
         switchState(State.TURN)

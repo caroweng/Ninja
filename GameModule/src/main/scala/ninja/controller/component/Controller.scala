@@ -9,14 +9,21 @@ import database.relational.RelationalDb
 import model.DeskInterface
 import model.component.component.component.component.Direction
 import model.component.{Desk, PlayerInterface}
-import model.component.component.component.{FieldInterface, StateOfPlayer}
+import model.component.component.component.{FieldInterface, Player, StateOfPlayer}
 import ninja.controller.ControllerInterface
 import ninja.fileIO.json.FileIO
 import ninja.game.{PlayerRequestHandler, PlayerRequestHandlerWui}
 import ninja.util.UndoManager
 
+import scala.concurrent.{Await, Future}
 import scala.swing.Publisher
 import scala.swing.event.Event
+import scala.concurrent.duration._
+import scala.util.{Failure, Success}
+
+import scala.concurrent._
+import ExecutionContext.Implicits.global
+
 
 class Controller @Inject()(var desk: DeskInterface) extends ControllerInterface with Publisher {
     var state: State.state = State.INSERTING_NAME_1
@@ -58,19 +65,32 @@ class Controller @Inject()(var desk: DeskInterface) extends ControllerInterface 
     def changeTurnsRequest(): DeskInterface = {
         println(desk.player1)
         println(desk.player2)
-        val players: (PlayerInterface, PlayerInterface) = playerRequestHandler.changeTurns()
-        desk = desk.copyWithNewPlayer(players._1.id, players._1)
-        desk = desk.copyWithNewPlayer(players._2.id, players._2)
-        println(players)
+
+        val playersOption: Future[(Player, Player)]  = playerRequestHandler.changeTurns()
+
+        playersOption.onComplete{
+            case Success((player1: Player, player2: Player)) => {
+                desk = desk.copyWithNewPlayer(player1.id, player1)
+                desk = desk.copyWithNewPlayer(player2.id, player2)
+            }
+            case Failure(exception) => println("change turns failure")
+        }
+
         desk
     }
 
     def setNameRequest(name: String, id: Int): DeskInterface = {
-        val player: PlayerInterface = playerRequestHandler.setName(name, id.toString)
-//        while(player==null) {
-//            Thread.sleep(100)
-//        }
-        desk.copyWithNewPlayer(player.id, player)
+        val playerOption: Future[Player] = playerRequestHandler.setName(name, id.toString)
+//        val player: Player = Await.result(playerOption, 7.second)
+
+        playerOption.onComplete{
+            case Success(player: Player) => {
+                desk = desk.copyWithNewPlayer(player.id, player)
+            }
+            case Failure(exception) => println("set name failure")
+        }
+
+        desk
     }
 
     def setFlag(row: Int, col: Int): State.state = {
